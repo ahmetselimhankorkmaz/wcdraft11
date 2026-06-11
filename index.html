@@ -2294,6 +2294,7 @@ function renderDots() {
     d.className = 'pdot' + (i < filled ? ' done' : i === filled ? ' active' : '');
     el.appendChild(d);
   }
+  updateKadroBadge();
 }
 
 // ═══════════════════
