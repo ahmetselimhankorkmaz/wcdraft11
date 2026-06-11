@@ -870,7 +870,7 @@
   <div style="display:flex;align-items:center;gap:10px;">
     <button id="langToggle" class="lang-toggle" onclick="toggleLanguage()" aria-label="Change language">EN</button>
     <div class="hdr-team" id="playerTeamBadge">Takım seçilmedi</div>
-    <div class="hdr-turn"><b id="turnNum">1</b>. Tur / <span id="turnTotal">12</span></div>
+    <div class="hdr-turn" aria-live="polite"><b id="turnNum">1</b>. Tur / <span id="turnTotal">12</span></div>
   </div>
 </div>
 
@@ -921,7 +921,7 @@
         padding:7px; cursor:pointer; transition:all 0.15s; display:none;
         letter-spacing:0.5px;
       ">PAS GEÇ — <span id="passLeftTxt">3</span> hak kaldı</button>
-      <div class="action-hint" id="actionHint">Ülkeni seç, çarkı çevir ve gelen ülkeden bir oyuncuyu uygun slota yerleştir.</div>
+      <div class="action-hint" id="actionHint" role="status">Ülkeni seç, çarkı çevir ve gelen ülkeden bir oyuncuyu uygun slota yerleştir.</div>
     </div>
 
     <!-- SCROLL'LANABILIR ALT: Seçim banner + oyuncu listesi -->
@@ -1942,6 +1942,9 @@ function showFormationModal(newFormation) {
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'formationModal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'fmTitle');
     modal.style.cssText = `
       position:fixed; inset:0; background:rgba(0,0,0,0.5);
       display:flex; align-items:center; justify-content:center; z-index:500;
@@ -1949,7 +1952,7 @@ function showFormationModal(newFormation) {
     modal.innerHTML = `
       <div style="background:#fff;border-radius:14px;padding:24px 28px;max-width:340px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
         <div style="font-size:28px;margin-bottom:10px;">⚠️</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:#111827;margin-bottom:6px;">Formasyon Değiştir?</div>
+        <div id="fmTitle" role="heading" aria-level="2" style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:#111827;margin-bottom:6px;">Formasyon Değiştir?</div>
         <div style="font-size:13px;color:#6b7280;margin-bottom:20px;line-height:1.5;">Seçtiğin <b id="fmFilledCount">0</b> oyuncu kadrodan silinecek.<br>Bu işlem geri alınamaz.</div>
         <div style="display:flex;gap:10px;">
           <button onclick="closeFormationModal()" style="flex:1;padding:10px;border:1.5px solid #e5e7eb;background:#fff;border-radius:8px;font-size:14px;font-weight:600;color:#6b7280;cursor:pointer;">İptal</button>
@@ -1992,7 +1995,7 @@ function showTutorial() {
       <!-- Başlık -->
       <div style="text-align:center;margin-bottom:20px;flex-shrink:0;">
         <div style="font-size:44px;margin-bottom:6px;line-height:1;">⚽</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#4ade80;line-height:1;">wcDraft11</div>
+        <div role="heading" aria-level="1" style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#4ade80;line-height:1;">wcDraft11</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fbbf24;margin-top:2px;">2026</div>
         <div style="font-size:12px;color:#64748b;margin-top:6px;">Kendi kadronuzu kurun, Dünya Kupası'nı simüle edin!</div>
       </div>
@@ -2003,7 +2006,7 @@ function showTutorial() {
         <div style="display:flex;gap:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px;align-items:flex-start;">
           <div style="font-size:22px;flex-shrink:0;line-height:1;">🌍</div>
           <div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#e2e8f0;margin-bottom:2px;">ÜLKE SEÇ</div>
+            <div role="heading" aria-level="2" style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#e2e8f0;margin-bottom:2px;">ÜLKE SEÇ</div>
             <div style="font-size:11px;color:#64748b;line-height:1.4;">48 ülkeden birini seç, turnuvada onu temsil et.</div>
           </div>
         </div>
@@ -2011,7 +2014,7 @@ function showTutorial() {
         <div style="display:flex;gap:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px;align-items:flex-start;">
           <div style="font-size:22px;flex-shrink:0;line-height:1;">🎰</div>
           <div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#e2e8f0;margin-bottom:2px;">ÇARKI ÇEVİR</div>
+            <div role="heading" aria-level="2" style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#e2e8f0;margin-bottom:2px;">ÇARKI ÇEVİR</div>
             <div style="font-size:11px;color:#64748b;line-height:1.4;">Rastgele ülke gelir, 1 oyuncu seç. <b style="color:#fbbf24">3 pas hakkın</b> var!</div>
           </div>
         </div>
@@ -2023,7 +2026,7 @@ function showTutorial() {
             <div style="width:10px;height:10px;border-radius:50%;background:#ef4444;"></div>
           </div>
           <div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#e2e8f0;margin-bottom:2px;">FİT SİSTEMİ</div>
+            <div role="heading" aria-level="2" style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#e2e8f0;margin-bottom:2px;">FİT SİSTEMİ</div>
             <div style="font-size:11px;color:#64748b;line-height:1.4;"><span style="color:#4ade80">Yeşil</span> = doğal, <span style="color:#fbbf24">sarı</span> = alternatif, <span style="color:#f87171">kırmızı</span> = yanlış pozisyon.</div>
           </div>
         </div>
@@ -2031,7 +2034,7 @@ function showTutorial() {
         <div style="display:flex;gap:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px;align-items:flex-start;">
           <div style="font-size:22px;flex-shrink:0;line-height:1;">🌐</div>
           <div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#e2e8f0;margin-bottom:2px;">KITA KOTASI</div>
+            <div role="heading" aria-level="2" style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#e2e8f0;margin-bottom:2px;">KITA KOTASI</div>
             <div style="font-size:11px;color:#64748b;line-height:1.4;">UEFA 5 · SAM 3 · AFR/ASY/KAM 2 · OFC 1. Karışık kadro kur!</div>
           </div>
         </div>
@@ -2042,7 +2045,7 @@ function showTutorial() {
       <div style="display:flex;gap:10px;background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.18);border-radius:10px;padding:12px;margin-bottom:16px;align-items:center;flex-shrink:0;">
         <div style="font-size:24px;flex-shrink:0;line-height:1;">🏆</div>
         <div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#4ade80;margin-bottom:2px;">TURNUVAYI SİMÜLE ET</div>
+          <div role="heading" aria-level="2" style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:#4ade80;margin-bottom:2px;">TURNUVAYI SİMÜLE ET</div>
           <div style="font-size:11px;color:#64748b;line-height:1.4;">Kadron tamam olunca kaptanını seç ve simülasyonu başlat! Grup aşaması, eleme turları, uzatmalar, penaltılar... Şampiyon olabilecek misin?</div>
         </div>
       </div>
@@ -2112,7 +2115,7 @@ function showStartScreen() {
   content.innerHTML = `
     <div style="text-align:center;margin-bottom:18px;">
       <div style="font-size:48px;margin-bottom:6px;">⚽</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#111827;">wcDraft11 2026</div>
+      <div role="heading" aria-level="1" style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#111827;">wcDraft11 2026</div>
       <div style="font-size:13px;color:#6b7280;margin-top:4px;">Hangi ülkeyle oynamak istiyorsun?</div>
     </div>
 
@@ -2272,8 +2275,12 @@ function renderDots() {
   el.innerHTML = '';
   const total = totalSlots(formation);
   // 9: Her zaman formasyona göre güncelle
-  document.getElementById('turnTotal').textContent = total;
-  document.getElementById('turnNum').textContent = Math.min(filled + 1, total);
+  // (aria-live: değer değişmediyse yazma — ekran okuyucuda tekrar duyuru olmasın)
+  const totalEl = document.getElementById('turnTotal');
+  const numEl = document.getElementById('turnNum');
+  const numTxt = String(Math.min(filled + 1, total));
+  if (totalEl.textContent !== String(total)) totalEl.textContent = total;
+  if (numEl.textContent !== numTxt) numEl.textContent = numTxt;
   for (let i = 0; i < total; i++) {
     const d = document.createElement('div');
     d.className = 'pdot' + (i < filled ? ' done' : i === filled ? ' active' : '');
@@ -2304,7 +2311,7 @@ function updatePassBtn() {
 }
 
 function passCountry() {
-  if (passLeft <= 0) { showUndoToast('❌ Pas geçme hakkın kalmadı!'); return; }
+  if (passLeft <= 0) { showUndoToast('❌ Pas geçme hakkın kalmadı!', 'alert'); return; }
   if (!currentCountryId) return;
   // Çekilmiş ülkeyi tekrar havuza koy (kota sayısına da dokunma)
   usedCountryIds.delete(currentCountryId);
@@ -2319,7 +2326,7 @@ function passCountry() {
   document.getElementById('scBgCountry').textContent = '';
   document.getElementById('scBgConf').textContent = '';
   document.getElementById('passBtn').style.display = 'none';
-  showUndoToast(`↩ Pas geçildi · ${passLeft} hak kaldı`);
+  showUndoToast(`↩ Pas geçildi · ${passLeft} hak kaldı`, 'off'); // duyuruyu actionHint yapıyor
   // Çevir butonunu aktif et
   const spinBtn = document.getElementById('spinBtn');
   spinBtn.disabled = false;
@@ -2349,7 +2356,7 @@ document.getElementById('spinBtn').addEventListener('click', () => {
   if (filled >= total) return;
   // KİLİT: Ülke çekildiyse önce oyuncu seç veya pas kullan
   if (currentCountryId !== null) {
-    showUndoToast('⚠ Önce oyuncu seç ya da pas kullan!');
+    showUndoToast('⚠ Önce oyuncu seç ya da pas kullan!', 'off'); // duyuruyu actionHint yapıyor
     setActionHint('Bu turdan çıkmak için oyuncu seç veya pas geç.');
     return;
   }
@@ -2369,7 +2376,7 @@ document.getElementById('spinBtn').addEventListener('click', () => {
   });
 
   if (available.length === 0) {
-    showUndoToast('ℹ Kota havuzu doldu, tekrar etmeyen ülkelerden seçim yapılıyor.');
+    showUndoToast('ℹ Kota havuzu doldu, tekrar etmeyen ülkelerden seçim yapılıyor.', 'off'); // duyuruyu actionHint yapıyor
     setActionHint('Konfederasyon kotası dolduğu için havuz genişletildi.');
   }
 
@@ -2579,6 +2586,9 @@ function showSquadReadyOverlay() {
   if (!overlay) {
     overlay = document.createElement('div');
     overlay.id = 'squadReadyOverlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'squadReadyTitle');
     overlay.style.cssText = `
       position: fixed;
       inset: 0;
@@ -2602,12 +2612,12 @@ function showSquadReadyOverlay() {
         animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
       ">
         <div style="font-size: 44px; margin-bottom: 6px;">⚽</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#111827;margin-bottom:4px;">KADRO HAZIR!</div>
+        <div id="squadReadyTitle" role="heading" aria-level="2" style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#111827;margin-bottom:4px;">KADRO HAZIR!</div>
         <div style="font-size:12px;color:#6b7280;margin-bottom:16px;">Şimdi kaptanını seç</div>
 
         <!-- Kaptan seçimi -->
         <div style="margin-bottom:16px;">
-          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ca3af;margin-bottom:8px;">C KAPTAN SEÇ</div>
+          <div role="heading" aria-level="3" style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ca3af;margin-bottom:8px;">C KAPTAN SEÇ</div>
           <div id="captainGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-height:220px;overflow-y:auto;"></div>
         </div>
 
@@ -2723,7 +2733,7 @@ function confirmCaptainAndStart() {
 function tryUndo(idx) {
   if (!canUndo || idx !== lastPlacedSlotIdx) {
     // Başka bir slota tıklandı veya geri alma hakkı yok
-    showUndoToast('⚠ Sadece son seçimi geri alabilirsin!');
+    showUndoToast('⚠ Sadece son seçimi geri alabilirsin!', 'alert');
     return;
   }
   undoLastPlacement();
@@ -2798,10 +2808,12 @@ function undoLastPlacement() {
   updateQuotaBar();
   renderDots();
 
-  showUndoToast('↩ Geri alındı — başka oyuncu seçebilirsin');
+  showUndoToast('↩ Geri alındı — başka oyuncu seçebilirsin', 'off'); // duyuruyu actionHint yapıyor
 }
 
-function showUndoToast(msg) {
+// live: 'status' (varsayılan, polite) | 'alert' (reddedilen işlem) | 'off'
+// 'off' = duyuru yok; aynı olayı #actionHint zaten duyuruyorsa çift okuma olmasın diye kullanılır.
+function showUndoToast(msg, live = 'status') {
   let toast = document.getElementById('undoToast');
   if (!toast) {
     toast = document.createElement('div');
@@ -2815,6 +2827,9 @@ function showUndoToast(msg) {
     `;
     document.body.appendChild(toast);
   }
+  // Rol, içerik değişmeden ÖNCE ayarlanmalı ki duyuru doğru modda yapılsın
+  if (live === 'off') toast.removeAttribute('role');
+  else toast.setAttribute('role', live === 'alert' ? 'alert' : 'status');
   toast.textContent = msg;
   toast.style.opacity = '1';
   clearTimeout(toast._t);
@@ -3340,7 +3355,7 @@ showTutorial();
   <div class="match-events" id="matchEvents"></div>
 
   <!-- Sonuç -->
-  <div class="match-result" id="matchResult">
+  <div class="match-result" id="matchResult" role="status">
     <div class="mr-title" id="mrTitle"></div>
     <div class="mr-desc" id="mrDesc"></div>
     <button class="mr-btn" id="mrBtn" onclick="onMatchResultClick()"></button>
