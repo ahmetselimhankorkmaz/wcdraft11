@@ -64,6 +64,8 @@
       padding: 0 28px;
     }
     .hdr-logo {
+      margin: 0;
+      font-weight: 400;
       font-family: 'Bebas Neue', sans-serif;
       font-size: 18px;
       letter-spacing: 2px;
@@ -230,7 +232,7 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: #9ca3af;
-      margin-bottom: 4px;
+      margin: 0 0 4px;
       flex-shrink: 0;
     }
     .pl-list {
@@ -373,6 +375,7 @@
       gap: 8px;
     }
     .pitch-lbl {
+      margin: 0;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 1.5px;
@@ -865,20 +868,20 @@
 <body>
 
 <!-- HEADER -->
-<div class="hdr">
-  <div class="hdr-logo">⚽ wcDraft<span>11</span></div>
+<header class="hdr">
+  <h1 class="hdr-logo">⚽ wcDraft<span>11</span></h1>
   <div style="display:flex;align-items:center;gap:10px;">
     <button id="langToggle" class="lang-toggle" onclick="toggleLanguage()" aria-label="Change language">EN</button>
     <div class="hdr-team" id="playerTeamBadge">Takım seçilmedi</div>
     <div class="hdr-turn" aria-live="polite"><b id="turnNum">1</b>. Tur / <span id="turnTotal">12</span></div>
   </div>
-</div>
+</header>
 
 <!-- MAIN -->
-<div class="main">
+<main class="main">
 
   <!-- MOBİL TAB BAR -->
-  <div class="mob-tabs" id="mobTabs">
+  <nav class="mob-tabs" id="mobTabs" aria-label="Bölüm sekmeleri">
     <button class="mob-tab active" id="tabSec" onclick="switchTab('sec')">
       <span class="mob-tab-icon">🎰</span> OYUNCU SEÇ
       <span class="mob-tab-badge" id="tabSecBadge" style="display:none"></span>
@@ -887,10 +890,10 @@
       <span class="mob-tab-icon">🏟</span> KADRO
       <span class="mob-tab-badge" id="tabKadroBadge">0</span>
     </button>
-  </div>
+  </nav>
 
   <!-- LEFT -->
-  <div class="left">
+  <section class="left" aria-label="Oyuncu seçimi">
 
     <!-- SABİT ÜST: Formasyon + kutular + buton -->
     <div class="left-fixed">
@@ -937,16 +940,16 @@
         <button class="sel-banner-cancel" onclick="cancelSelection()">✕ İptal</button>
       </div>
 
-      <div class="pl-label" id="plLabel" style="display:none;">Oyuncu Seç</div>
+      <h2 class="pl-label" id="plLabel" style="display:none;">Oyuncu Seç</h2>
       <div class="pl-list" id="plList"></div>
     </div>
 
-  </div>
+  </section>
 
   <!-- RIGHT -->
-  <div class="right">
+  <section class="right" aria-label="Kadro ve saha">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-      <div class="pitch-lbl" id="pitchLbl">Formasyon — 4-3-3</div>
+      <h2 class="pitch-lbl" id="pitchLbl">Formasyon — 4-3-3</h2>
       <div class="fit-legend">
         <div class="fl-item"><div class="fl-dot" style="background:#22c55e"></div>Doğal</div>
         <div class="fl-item"><div class="fl-dot" style="background:#f59e0b"></div>Alternatif</div>
@@ -963,12 +966,12 @@
       <div class="p-sbox-b"></div>
       <div id="pitchSlots"></div>
     </div>
-  </div>
+  </section>
 
-</div>
+</main>
 
 <!-- FOOTER -->
-<div class="ftr">
+<footer class="ftr">
   <div class="prog-wrap">
     <div class="prog-lbl">İlerleme</div>
     <div class="prog-dots" id="progDots"></div>
@@ -981,7 +984,7 @@
     <div id="squadStatus" style="font-size:12px;font-weight:600;color:#9ca3af;"></div>
     <button class="sim-btn" id="simBtn" aria-label="Dünya Kupası simülasyonunu başlat">DÜNYA KUPASI'NI SİMÜLE ET</button>
   </div>
-</div>
+</footer>
 
 <script>
 // ── LANGUAGE SUPPORT (TR / EN) ─────────────────────
@@ -994,7 +997,8 @@ const I18N = {
     NATURAL:'Doğal', CLICK_UNDO:'Tıkla: Geri al', PROGRESS:'İlerleme', SIMULATE:'DÜNYA KUPASI\'NI SİMÜLE ET', UNDO:'↩ Geri Al',
     ROUND:'Tur', BACK_TO_SQUAD:'← Kadroya Dön', MATCH_FLOW:'MAÇ AKIŞI', SPEED:'Hız', TOURNAMENT_RESULTS:'TURNUVA SONUÇLARI',
     CHAMPION:'Şampiyon', RUNNER_UP:'İkinci', THIRD_PLACE:'Üçüncü', TOP_SCORER:'Gol Kralı', MVP:'Turnuva Oyuncusu', GOALS:'gol',
-    A11Y_RATING:'reyting', A11Y_EMPTY:'Boş slot', A11Y_SUB:'Yedek'
+    A11Y_RATING:'reyting', A11Y_EMPTY:'Boş slot', A11Y_SUB:'Yedek',
+    NAV_TABS:'Bölüm sekmeleri', SECTION_DRAFT:'Oyuncu seçimi', SECTION_SQUAD:'Kadro ve saha'
   },
   en: {
     TEAM_NOT_SELECTED:'No team selected', FORMATION:'Formation', COUNTRY:'Country', CONFEDERATION:'Confederation', SPIN:'SPIN',
@@ -1003,7 +1007,8 @@ const I18N = {
     NATURAL:'Natural', CLICK_UNDO:'Tap: Undo', PROGRESS:'Progress', SIMULATE:'SIMULATE WORLD CUP', UNDO:'↩ Undo',
     ROUND:'Round', BACK_TO_SQUAD:'← Back to Squad', MATCH_FLOW:'MATCH FLOW', SPEED:'Speed', TOURNAMENT_RESULTS:'TOURNAMENT RESULTS',
     CHAMPION:'Champion', RUNNER_UP:'Runner-up', THIRD_PLACE:'Third Place', TOP_SCORER:'Top Scorer', MVP:'Player of the Tournament', GOALS:'goals',
-    A11Y_RATING:'rating', A11Y_EMPTY:'Empty slot', A11Y_SUB:'Substitute'
+    A11Y_RATING:'rating', A11Y_EMPTY:'Empty slot', A11Y_SUB:'Substitute',
+    NAV_TABS:'Section tabs', SECTION_DRAFT:'Player selection', SECTION_SQUAD:'Squad and pitch'
   }
 };
 function T(key) { return (I18N[currentLang] && I18N[currentLang][key]) || I18N.tr[key] || key; }
@@ -1099,6 +1104,9 @@ function applyLanguage() {
   document.querySelectorAll('.sim-back').forEach(el => el.textContent = T('BACK_TO_SQUAD'));
   document.querySelectorAll('.match-flow-title, .events-title').forEach(el => { if (el.textContent.includes('MAÇ') || el.textContent.includes('MATCH')) el.textContent = T('MATCH_FLOW'); });
   document.querySelectorAll('.speed-label').forEach(el => el.textContent = T('SPEED') + ':');
+  document.getElementById('mobTabs')?.setAttribute('aria-label', T('NAV_TABS'));
+  document.querySelector('.left')?.setAttribute('aria-label', T('SECTION_DRAFT'));
+  document.querySelector('.right')?.setAttribute('aria-label', T('SECTION_SQUAD'));
   refreshA11yLabels();
 }
 window.addEventListener('DOMContentLoaded', applyLanguage);
@@ -2951,7 +2959,7 @@ showTutorial();
 .draw-title {
   font-family:'Bebas Neue',sans-serif;
   font-size:36px; letter-spacing:3px; color:#4ade80;
-  text-align:center; margin-bottom:6px;
+  text-align:center; margin:0 0 6px; font-weight:400;
 }
 .draw-sub { text-align:center; color:#64748b; font-size:13px; margin-bottom:32px; }
 .groups-grid {
@@ -3106,7 +3114,7 @@ showTutorial();
   text-align:center;
   display:none;
 }
-.mr-title { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:2px; margin-bottom:8px; }
+.mr-title { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:2px; margin:0 0 8px; font-weight:400; }
 .mr-title.win { color:#4ade80; }
 .mr-title.lose { color:#f87171; }
 .mr-title.draw-w { color:#fbbf24; }
@@ -3127,7 +3135,7 @@ showTutorial();
   text-align:center; max-width:600px; margin:0 auto;
 }
 .el-trophy { font-size:64px; margin-bottom:16px; display:block; }
-.el-title { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:3px; margin-bottom:8px; }
+.el-title { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:3px; margin:0 0 8px; font-weight:400; }
 .el-sub { font-size:14px; color:#64748b; margin-bottom:24px; line-height:1.6; }
 .el-stats {
   display:grid; grid-template-columns:repeat(3,1fr);
@@ -3144,7 +3152,7 @@ showTutorial();
   border-radius:10px; padding:16px; margin-bottom:20px;
   text-align:left;
 }
-.el-squad-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#475569; margin-bottom:10px; }
+.el-squad-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#475569; margin:0 0 10px; }
 .el-squad-players { display:flex; flex-wrap:wrap; gap:6px; }
 .el-player-chip {
   background:#0f2550; border:1px solid #1e3a5f;
@@ -3170,14 +3178,14 @@ showTutorial();
 @keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-10px)} }
 .champ-title {
   font-family:'Bebas Neue',sans-serif; font-size:52px;
-  letter-spacing:4px; color:#fbbf24; margin-bottom:4px;
+  letter-spacing:4px; color:#fbbf24; margin:0 0 4px; font-weight:400;
 }
 .champ-sub { font-size:14px; color:#94a3b8; margin-bottom:24px; }
 .confetti-bg { position:fixed; inset:0; pointer-events:none; z-index:0; }
 
 /* Grup tablosu */
 .group-table-wrap { margin-top:20px; }
-.gt-title { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:2px; color:#4ade80; margin-bottom:10px; }
+.gt-title { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:2px; color:#4ade80; margin:0 0 10px; font-weight:400; }
 .gt-table { width:100%; border-collapse:collapse; }
 .gt-table th { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#475569; padding:6px 10px; text-align:center; }
 .gt-table th:first-child { text-align:left; }
@@ -3304,7 +3312,7 @@ showTutorial();
 
 <!-- Kura Ekranı -->
 <div id="drawScreen">
-  <div class="draw-title">DÜNYA KUPASI 2026</div>
+  <h2 class="draw-title">DÜNYA KUPASI 2026</h2>
   <div class="draw-sub">Takımın grubu belirleniyor...</div>
   <div class="groups-grid" id="groupsGrid"></div>
   <button class="draw-btn" id="drawBtn" onclick="startGroupStage()">GRUP AŞAMASINA BAŞLA →</button>
@@ -3356,14 +3364,14 @@ showTutorial();
 
   <!-- Sonuç -->
   <div class="match-result" id="matchResult" role="status">
-    <div class="mr-title" id="mrTitle"></div>
+    <h2 class="mr-title" id="mrTitle"></h2>
     <div class="mr-desc" id="mrDesc"></div>
     <button class="mr-btn" id="mrBtn" onclick="onMatchResultClick()"></button>
   </div>
 
   <!-- Grup tablosu (grup aşamasında) -->
   <div class="group-table-wrap" id="groupTableWrap" style="display:none;">
-    <div class="gt-title" id="gtTitle"></div>
+    <h3 class="gt-title" id="gtTitle"></h3>
     <table class="gt-table" id="gtTable"></table>
   </div>
 </div>
@@ -3371,11 +3379,11 @@ showTutorial();
 <!-- Elendi Ekranı -->
 <div id="eliminatedScreen">
   <span class="el-trophy">💔</span>
-  <div class="el-title" id="elTitle"></div>
+  <h2 class="el-title" id="elTitle"></h2>
   <div class="el-sub" id="elSub"></div>
   <div class="el-stats" id="elStats"></div>
   <div class="el-squad">
-    <div class="el-squad-title">Kurduğun Kadro</div>
+    <h3 class="el-squad-title">Kurduğun Kadro</h3>
     <div class="el-squad-players" id="elSquadPlayers"></div>
   </div>
   <button class="el-restart" onclick="exitSim()">🔄 YENİDEN OYNA</button>
@@ -3385,11 +3393,11 @@ showTutorial();
 <div id="championScreen">
   <canvas class="confetti-bg" id="confettiCanvas"></canvas>
   <span class="champ-trophy">🏆</span>
-  <div class="champ-title">ŞAMPİYON!</div>
+  <h2 class="champ-title">ŞAMPİYON!</h2>
   <div class="champ-sub" id="champSub"></div>
   <div class="el-stats" id="champStats"></div>
   <div class="el-squad">
-    <div class="el-squad-title">Şampiyon Kadro</div>
+    <h3 class="el-squad-title">Şampiyon Kadro</h3>
     <div class="el-squad-players" id="champSquadPlayers"></div>
   </div>
   <button class="el-restart" style="background:#ca8a04;color:#fff;" onclick="exitSim()">🔄 YENİDEN OYNA</button>
