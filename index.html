@@ -210,7 +210,7 @@
     /* Spin button */
     .spin-btn {
       width: 100%;
-      background: #16a34a;
+      background: #15803d;
       border: none;
       border-radius: 10px;
       color: #fff;
@@ -221,7 +221,7 @@
       cursor: pointer;
       transition: background 0.15s, transform 0.1s;
     }
-    .spin-btn:hover  { background: #15803d; }
+    .spin-btn:hover  { background: #166534; }
     .spin-btn:active { transform: scale(0.985); }
     .spin-btn:disabled { background: #bbf7d0; color: #166534; cursor: not-allowed; }
 
@@ -981,7 +981,6 @@
     <button id="undoBtn" onclick="undoLastPlacement()" style="display:none;align-items:center;gap:5px;background:transparent;border:1.5px solid #f59e0b;color:#f59e0b;border-radius:7px;padding:0 14px;height:34px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.5px;transition:all 0.15s;">
       ↩ Geri Al
     </button>
-    <div id="squadStatus" style="font-size:12px;font-weight:600;color:#9ca3af;"></div>
     <button class="sim-btn" id="simBtn" aria-label="Dünya Kupası simülasyonunu başlat">DÜNYA KUPASI'NI SİMÜLE ET</button>
   </div>
 </footer>
@@ -998,7 +997,8 @@ const I18N = {
     ROUND:'Tur', BACK_TO_SQUAD:'← Kadroya Dön', MATCH_FLOW:'MAÇ AKIŞI', SPEED:'Hız', TOURNAMENT_RESULTS:'TURNUVA SONUÇLARI',
     CHAMPION:'Şampiyon', RUNNER_UP:'İkinci', THIRD_PLACE:'Üçüncü', TOP_SCORER:'Gol Kralı', MVP:'Turnuva Oyuncusu', GOALS:'gol',
     A11Y_RATING:'reyting', A11Y_EMPTY:'Boş slot', A11Y_SUB:'Yedek',
-    NAV_TABS:'Bölüm sekmeleri', SECTION_DRAFT:'Oyuncu seçimi', SECTION_SQUAD:'Kadro ve saha'
+    NAV_TABS:'Bölüm sekmeleri', SECTION_DRAFT:'Oyuncu seçimi', SECTION_SQUAD:'Kadro ve saha',
+    SPIN_AGAIN:'TEKRAR ÇEVİR'
   },
   en: {
     TEAM_NOT_SELECTED:'No team selected', FORMATION:'Formation', COUNTRY:'Country', CONFEDERATION:'Confederation', SPIN:'SPIN',
@@ -1008,7 +1008,8 @@ const I18N = {
     ROUND:'Round', BACK_TO_SQUAD:'← Back to Squad', MATCH_FLOW:'MATCH FLOW', SPEED:'Speed', TOURNAMENT_RESULTS:'TOURNAMENT RESULTS',
     CHAMPION:'Champion', RUNNER_UP:'Runner-up', THIRD_PLACE:'Third Place', TOP_SCORER:'Top Scorer', MVP:'Player of the Tournament', GOALS:'goals',
     A11Y_RATING:'rating', A11Y_EMPTY:'Empty slot', A11Y_SUB:'Substitute',
-    NAV_TABS:'Section tabs', SECTION_DRAFT:'Player selection', SECTION_SQUAD:'Squad and pitch'
+    NAV_TABS:'Section tabs', SECTION_DRAFT:'Player selection', SECTION_SQUAD:'Squad and pitch',
+    SPIN_AGAIN:'SPIN AGAIN'
   }
 };
 function T(key) { return (I18N[currentLang] && I18N[currentLang][key]) || I18N.tr[key] || key; }
@@ -1082,7 +1083,7 @@ function applyLanguage() {
   const scLabels = document.querySelectorAll('.sc-label');
   if (scLabels[0]) scLabels[0].textContent = T('COUNTRY');
   if (scLabels[1]) scLabels[1].textContent = T('CONFEDERATION');
-  const spin = document.getElementById('spinBtn'); if (spin) spin.textContent = T('SPIN');
+  updateSpinLabel();
   const pass = document.getElementById('passBtn'); if (pass) pass.childNodes[0].nodeValue = T('PASS_PREFIX') + ' — ';
   const passSuffix = document.getElementById('passLeftTxt'); if (passSuffix && passSuffix.nextSibling) passSuffix.nextSibling.nodeValue = ' ' + T('PASS_SUFFIX');
   setTxt('#actionHint', T('ACTION_HINT'));
@@ -1881,6 +1882,14 @@ function setActionHint(text) {
   const el = document.getElementById('actionHint');
   if (el) el.textContent = text;
 }
+// Spin butonu yalnız eylem etiketi taşır ('spin' | 'spinAgain');
+// durum/talimat metni #actionHint üzerinden duyurulur.
+let spinLabelMode = 'spin';
+function updateSpinLabel(mode) {
+  if (mode) spinLabelMode = mode;
+  const btn = document.getElementById('spinBtn');
+  if (btn) btn.textContent = spinLabelMode === 'spinAgain' ? T('SPIN_AGAIN') : T('SPIN');
+}
 function getConfQuotaText(conf) {
   const max = CONF_QUOTA[conf] || 1;
   const used = confCounts[conf] || 0;
@@ -1908,9 +1917,9 @@ function updateQuotaBar() {
       `<div style="width:8px;height:8px;border-radius:50%;background:${i < used ? c.color : '#e5e7eb'};flex-shrink:0;"></div>`
     ).join('');
     return `
-      <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:${full?0.38:1}">
-        <div style="display:flex;gap:2px;">${dots}</div>
-        <div class="quota-lbl" style="font-size:9px;font-weight:700;color:${full?'#6b7280':c.textColor};letter-spacing:0.5px;">${c.label} <span style="opacity:0.6">${used}/${c.max}</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+        <div style="display:flex;gap:2px;opacity:${full?0.38:1};">${dots}</div>
+        <div class="quota-lbl" style="font-size:9px;font-weight:700;color:${full?'#6b7280':c.textColor};letter-spacing:0.5px;">${c.label} <span style="color:#6b7280">${used}/${c.max}</span></div>
       </div>`;
   }).join('');
 }
@@ -2060,15 +2069,15 @@ function showTutorial() {
 
       <!-- Başla butonu -->
       <button onclick="document.getElementById('tutorialScreen').remove();showStartScreen();" style="
-        width:100%;background:#16a34a;border:none;border-radius:12px;
+        width:100%;background:#15803d;border:none;border-radius:12px;
         color:#fff;font-family:'Bebas Neue',sans-serif;
         font-size:22px;letter-spacing:4px;padding:16px;cursor:pointer;
         transition:background 0.15s,transform 0.1s;
         box-shadow:0 4px 20px rgba(22,163,74,0.35);
         flex-shrink:0;
       "
-      onmouseover="this.style.background='#15803d'"
-      onmouseout="this.style.background='#16a34a'"
+      onmouseover="this.style.background='#166534'"
+      onmouseout="this.style.background='#15803d'"
       onmousedown="this.style.transform='scale(0.97)'"
       onmouseup="this.style.transform='scale(1)'">
         HADİ BAŞLAYALIM →
@@ -2184,7 +2193,7 @@ function showStartScreen() {
     const avgRating = Math.round(c.players.reduce((s,p)=>s+p.rating,0)/c.players.length);
     document.getElementById('startRating').textContent = '★ Ortalama Güç: ' + avgRating + ' · ' + c.players.length + ' oyuncu';
     preview.style.display = 'flex';
-    btn.disabled = false; btn.style.background = '#16a34a'; btn.style.color = '#fff'; btn.style.cursor = 'pointer';
+    btn.disabled = false; btn.style.background = '#15803d'; btn.style.color = '#fff'; btn.style.cursor = 'pointer';
   });
 }
 
@@ -2224,7 +2233,7 @@ function resetAll() {
   document.getElementById('scBgCountry').textContent = '';
   document.getElementById('scBgConf').textContent = '';
   document.getElementById('spinBtn').disabled = false;
-  document.getElementById('spinBtn').textContent = 'ÇEVİR';
+  updateSpinLabel('spin');
   document.getElementById('spinBtn').style.background = '';
   document.getElementById('simBtn').classList.remove('ready');
   const existingOverlay = document.getElementById('squadReadyOverlay');
@@ -2339,7 +2348,7 @@ function passCountry() {
   // Çevir butonunu aktif et
   const spinBtn = document.getElementById('spinBtn');
   spinBtn.disabled = false;
-  spinBtn.textContent = 'ÇEVİR';
+  updateSpinLabel('spin');
   setActionHint('Pas kullanıldı. Yeni ülke çekmek için çarkı çevir.');
   spinBtn.style.background = '';
 }
@@ -2374,7 +2383,7 @@ document.getElementById('spinBtn').addEventListener('click', () => {
   updateUndoBtn();
 
   const btn = document.getElementById('spinBtn');
-  btn.disabled = true; btn.textContent = 'ÇEVİRİLİYOR...';
+  btn.disabled = true; btn.setAttribute('aria-busy', 'true'); updateSpinLabel('spin');
 
   // Kıta kotası dolmamış + daha önce çekilmemiş ülkeleri filtrele
   const available = COUNTRIES.filter(c => {
@@ -2421,7 +2430,7 @@ document.getElementById('spinBtn').addEventListener('click', () => {
     updateQuotaBar();
     // Ülke seçildi — çark kilitle
     btn.disabled = true;
-    btn.textContent = 'OYUNCU SEÇ VEYA PAS KULLAN';
+    btn.removeAttribute('aria-busy');
     btn.style.background = '';
     setActionHint(`${picked.flag} ${picked.name} geldi. Bir oyuncu seçip sahadaki uygun slota tıkla veya pas geç.`);
     spinning = false;
@@ -2570,7 +2579,7 @@ function commitPlacement(idx, fit) {
   const total = totalSlots(formation);
   const btn = document.getElementById('spinBtn');
   if (filled >= total) {
-    btn.disabled = true; btn.textContent = 'KADRO TAMAM ✓'; btn.style.background = '';
+    btn.disabled = true; btn.style.background = '';
     setActionHint('Kadro tamamlandı. Simülasyon için önce kaptan seç.');
     document.getElementById('simBtn').classList.add('ready');
     if (!squadCompletedTracked) {
@@ -2583,7 +2592,7 @@ function commitPlacement(idx, fit) {
     showSquadReadyOverlay();
   } else {
     btn.disabled = false;
-    btn.textContent = 'ÇEVİR';
+    updateSpinLabel('spin');
     btn.style.background = '';
     setActionHint('Oyuncu yerleşti. Bir sonraki tur için çarkı çevir.');
     currentCountryId = null; // kilit kaldır
@@ -2697,7 +2706,7 @@ function buildCaptainGrid() {
       const simBtn = document.getElementById('startSimBtn');
       if (simBtn) {
         simBtn.disabled = false;
-        simBtn.style.background = '#16a34a';
+        simBtn.style.background = '#15803d';
         simBtn.style.color = '#fff';
         simBtn.style.cursor = 'pointer';
       }
@@ -2809,7 +2818,7 @@ function undoLastPlacement() {
   // Spin butonu tekrar ÇEVİR değil — oyuncu seçebilir
   const btn = document.getElementById('spinBtn');
   btn.disabled = false;
-  btn.textContent = 'TEKRAR ÇEVİR';
+  updateSpinLabel('spinAgain');
   btn.style.background = '';
   document.getElementById('simBtn').classList.remove('ready');
 
@@ -5146,9 +5155,6 @@ document.getElementById('simBtn').addEventListener('click', () => {
     #quotaBar > div {
       transform: scale(0.9);
       transform-origin: center;
-    }
-    #squadStatus {
-      display: none !important;
     }
     .sim-btn, #undoBtn {
       min-height: 38px;
