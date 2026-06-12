@@ -920,7 +920,7 @@
       <button class="spin-btn" id="spinBtn" aria-label="Ülke çarkını çevir">ÇEVİR</button>
       <button id="passBtn" onclick="passCountry()" style="
         width:100%; background:transparent; border:1.5px solid #e5e7eb;
-        border-radius:8px; color:#9ca3af; font-size:12px; font-weight:700;
+        border-radius:8px; color:#6b7280; font-size:12px; font-weight:700;
         padding:7px; cursor:pointer; transition:all 0.15s; display:none;
         letter-spacing:0.5px;
       ">PAS GEÇ — <span id="passLeftTxt">3</span> hak kaldı</button>
@@ -935,7 +935,7 @@
         <div style="font-size:20px;" id="selBannerFlag">🏳</div>
         <div class="sel-banner-info">
           <div class="sel-banner-name" id="selBannerName">—</div>
-          <div class="sel-banner-hint">Sahada mevkiye tıkla • <span style="color:#f59e0b">🟡 Alternatif</span> <span style="color:#ef4444">🔴 Yanlış</span></div>
+          <div class="sel-banner-hint">Sahada mevkiye tıkla • <span style="color:#b45309">🟡 Alternatif</span> <span style="color:#b91c1c">🔴 Yanlış</span></div>
         </div>
         <button class="sel-banner-cancel" onclick="cancelSelection()">✕ İptal</button>
       </div>
@@ -1088,7 +1088,7 @@ function applyLanguage() {
   setTxt('#actionHint', T('ACTION_HINT'));
   setTxt('#plLabel', T('SELECT_PLAYER'));
   const hint = document.querySelector('.sel-banner-hint');
-  if (hint) hint.innerHTML = `${T('CLICK_POSITION')} • <span style="color:#f59e0b">🟡 ${T('ALT')}</span> <span style="color:#ef4444">🔴 ${T('WRONG')}</span>`;
+  if (hint) hint.innerHTML = `${T('CLICK_POSITION')} • <span style="color:#b45309">🟡 ${T('ALT')}</span> <span style="color:#b91c1c">🔴 ${T('WRONG')}</span>`;
   const cancel = document.querySelector('.sel-banner-cancel'); if (cancel) cancel.textContent = T('CANCEL');
   const legends = document.querySelectorAll('.fit-legend .fl-item');
   if (legends[0]) legends[0].lastChild.textContent = T('NATURAL');
@@ -1894,12 +1894,12 @@ function updateQuotaBar() {
   const bar = document.getElementById('quotaBar');
   if (!bar) return;
   const confs = [
-    { id:'UEFA',     label:'UEFA',  max:5, color:'#3b82f6' },
-    { id:'CONMEBOL', label:'SAM',   max:3, color:'#22c55e' },
-    { id:'CAF',      label:'AFR',   max:2, color:'#f59e0b' },
-    { id:'AFC',      label:'ASY',   max:2, color:'#a855f7' },
-    { id:'CONCACAF', label:'KAM',   max:2, color:'#f97316' },
-    { id:'OFC',      label:'OFC',   max:1, color:'#06b6d4' }
+    { id:'UEFA',     label:'UEFA',  max:5, color:'#3b82f6', textColor:'#1d4ed8' },
+    { id:'CONMEBOL', label:'SAM',   max:3, color:'#22c55e', textColor:'#15803d' },
+    { id:'CAF',      label:'AFR',   max:2, color:'#f59e0b', textColor:'#b45309' },
+    { id:'AFC',      label:'ASY',   max:2, color:'#a855f7', textColor:'#7c3aed' },
+    { id:'CONCACAF', label:'KAM',   max:2, color:'#f97316', textColor:'#c2410c' },
+    { id:'OFC',      label:'OFC',   max:1, color:'#06b6d4', textColor:'#0e7490' }
 ];
   bar.innerHTML = confs.map(c => {
     const used = confCounts[c.id] || 0;
@@ -1910,7 +1910,7 @@ function updateQuotaBar() {
     return `
       <div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:${full?0.38:1}">
         <div style="display:flex;gap:2px;">${dots}</div>
-        <div class="quota-lbl" style="font-size:9px;font-weight:700;color:${full?'#9ca3af':c.color};letter-spacing:0.5px;">${c.label} <span style="opacity:0.6">${used}/${c.max}</span></div>
+        <div class="quota-lbl" style="font-size:9px;font-weight:700;color:${full?'#6b7280':c.textColor};letter-spacing:0.5px;">${c.label} <span style="opacity:0.6">${used}/${c.max}</span></div>
       </div>`;
   }).join('');
 }
@@ -2128,7 +2128,7 @@ function showStartScreen() {
     </div>
 
     <div style="margin-bottom:14px;">
-      <label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ca3af;display:block;margin-bottom:6px;">Ülkeni Seç</label>
+      <label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6b7280;display:block;margin-bottom:6px;">Ülkeni Seç</label>
       <select id="startCountrySelect" style="
         width:100%; padding:12px 14px; border:2px solid #e5e7eb;
         border-radius:10px; font-size:14px; font-family:'DM Sans',sans-serif;
@@ -2149,13 +2149,13 @@ function showStartScreen() {
       <div>
         <div id="startName" style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:#111827;"></div>
         <div id="startConf" style="font-size:11px;color:#6b7280;margin-top:1px;"></div>
-        <div id="startRating" style="font-size:11px;color:#16a34a;font-weight:600;margin-top:2px;"></div>
+        <div id="startRating" style="font-size:11px;color:#15803d;font-weight:600;margin-top:2px;"></div>
       </div>
     </div>
 
     <button id="startGameBtn" onclick="confirmStartCountry()" style="
       width:100%; background:#e5e7eb; border:none; border-radius:12px;
-      color:#9ca3af; font-family:'Bebas Neue',sans-serif;
+      color:#4b5563; font-family:'Bebas Neue',sans-serif;
       font-size:20px; letter-spacing:3px; padding:14px;
       cursor:not-allowed; transition:all 0.15s;
     " disabled>
@@ -2173,7 +2173,7 @@ function showStartScreen() {
     const btn = document.getElementById('startGameBtn');
     if (!cid) {
       preview.style.display = 'none';
-      btn.disabled = true; btn.style.background = '#e5e7eb'; btn.style.color = '#9ca3af'; btn.style.cursor = 'not-allowed';
+      btn.disabled = true; btn.style.background = '#e5e7eb'; btn.style.color = '#4b5563'; btn.style.cursor = 'not-allowed';
       return;
     }
     const c = COUNTRIES.find(x => x.id === cid);
@@ -2225,7 +2225,7 @@ function resetAll() {
   document.getElementById('scBgConf').textContent = '';
   document.getElementById('spinBtn').disabled = false;
   document.getElementById('spinBtn').textContent = 'ÇEVİR';
-  document.getElementById('spinBtn').style.background = '#16a34a';
+  document.getElementById('spinBtn').style.background = '';
   document.getElementById('simBtn').classList.remove('ready');
   const existingOverlay = document.getElementById('squadReadyOverlay');
   if (existingOverlay) existingOverlay.remove();
@@ -2313,9 +2313,9 @@ function updatePassBtn() {
   btn.style.display = 'block';
   txt.textContent = passLeft;
   if (passLeft <= 1) {
-    btn.style.borderColor = '#fca5a5'; btn.style.color = '#ef4444';
+    btn.style.borderColor = '#fca5a5'; btn.style.color = '#b91c1c';
   } else {
-    btn.style.borderColor = '#e5e7eb'; btn.style.color = '#9ca3af';
+    btn.style.borderColor = '#e5e7eb'; btn.style.color = '#6b7280';
   }
 }
 
@@ -2341,7 +2341,7 @@ function passCountry() {
   spinBtn.disabled = false;
   spinBtn.textContent = 'ÇEVİR';
   setActionHint('Pas kullanıldı. Yeni ülke çekmek için çarkı çevir.');
-  spinBtn.style.background = '#16a34a';
+  spinBtn.style.background = '';
 }
 
 function spinAnimation(final, cb) {
@@ -2422,7 +2422,7 @@ document.getElementById('spinBtn').addEventListener('click', () => {
     // Ülke seçildi — çark kilitle
     btn.disabled = true;
     btn.textContent = 'OYUNCU SEÇ VEYA PAS KULLAN';
-    btn.style.background = '#9ca3af';
+    btn.style.background = '';
     setActionHint(`${picked.flag} ${picked.name} geldi. Bir oyuncu seçip sahadaki uygun slota tıkla veya pas geç.`);
     spinning = false;
     updatePassBtn();
@@ -2570,7 +2570,7 @@ function commitPlacement(idx, fit) {
   const total = totalSlots(formation);
   const btn = document.getElementById('spinBtn');
   if (filled >= total) {
-    btn.disabled = true; btn.textContent = 'KADRO TAMAM ✓'; btn.style.background = '#2563eb';
+    btn.disabled = true; btn.textContent = 'KADRO TAMAM ✓'; btn.style.background = '';
     setActionHint('Kadro tamamlandı. Simülasyon için önce kaptan seç.');
     document.getElementById('simBtn').classList.add('ready');
     if (!squadCompletedTracked) {
@@ -2584,7 +2584,7 @@ function commitPlacement(idx, fit) {
   } else {
     btn.disabled = false;
     btn.textContent = 'ÇEVİR';
-    btn.style.background = '#16a34a';
+    btn.style.background = '';
     setActionHint('Oyuncu yerleşti. Bir sonraki tur için çarkı çevir.');
     currentCountryId = null; // kilit kaldır
   }
@@ -2626,7 +2626,7 @@ function showSquadReadyOverlay() {
 
         <!-- Kaptan seçimi -->
         <div style="margin-bottom:16px;">
-          <div role="heading" aria-level="3" style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ca3af;margin-bottom:8px;">C KAPTAN SEÇ</div>
+          <div role="heading" aria-level="3" style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6b7280;margin-bottom:8px;">C KAPTAN SEÇ</div>
           <div id="captainGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-height:220px;overflow-y:auto;"></div>
         </div>
 
@@ -2641,7 +2641,7 @@ function showSquadReadyOverlay() {
 
         <button id="startSimBtn" onclick="confirmCaptainAndStart()" style="
           width:100%; background:#e5e7eb; border:none; border-radius:12px;
-          color:#9ca3af; font-family:'Bebas Neue',sans-serif;
+          color:#4b5563; font-family:'Bebas Neue',sans-serif;
           font-size:20px; letter-spacing:3px; padding:14px;
           cursor:not-allowed; transition:all 0.15s; margin-bottom:10px; display:block;
         " disabled>
@@ -2649,7 +2649,7 @@ function showSquadReadyOverlay() {
         </button>
         <button onclick="document.getElementById('squadReadyOverlay').remove();" style="
           width:100%; background:transparent; border:1.5px solid #e5e7eb;
-          border-radius:10px; color:#9ca3af; font-size:13px; font-weight:600;
+          border-radius:10px; color:#6b7280; font-size:13px; font-weight:600;
           padding:10px; cursor:pointer;
         ">Kadroya Geri Dön</button>
       </div>
@@ -2686,7 +2686,7 @@ function buildCaptainGrid() {
     `;
     btn.innerHTML = `
       <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#111827;line-height:1.2;">${p.name.split(' ').pop()}</div>
-      <div style="font-size:9px;color:#9ca3af;margin-top:2px;">${slot.pos} · ${p.rating}</div>
+      <div style="font-size:9px;color:#4b5563;margin-top:2px;">${slot.pos} · ${p.rating}</div>
       ${isSelected ? '<div style="position:absolute;top:-6px;right:-6px;background:#fbbf24;color:#92400e;font-size:9px;font-weight:800;padding:1px 4px;border-radius:4px;">C</div>' : ''}
     `;
     btn.onclick = () => {
@@ -2810,7 +2810,7 @@ function undoLastPlacement() {
   const btn = document.getElementById('spinBtn');
   btn.disabled = false;
   btn.textContent = 'TEKRAR ÇEVİR';
-  btn.style.background = '#16a34a';
+  btn.style.background = '';
   document.getElementById('simBtn').classList.remove('ready');
 
   updateUndoBtn();
