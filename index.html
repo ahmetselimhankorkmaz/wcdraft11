@@ -3628,7 +3628,7 @@ function setMatchSpeed(x) {
 function launchSimulation() {
   trackEvent('turnuva_baslatildi', {
     selected_country: window.playerCountryId || '',
-    formation: currentFormation || ''
+    formation: formation || ''
   });
   // Kullanıcının başta seçtiği ülkeyi kullan
   let mainCountryId = window.playerCountryId || 'brazil';
