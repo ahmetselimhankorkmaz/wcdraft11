@@ -607,29 +607,62 @@
 
     /* ── FOOTER ── */
     .ftr {
-      height: 48px;
+      min-height: 56px;
       flex-shrink: 0;
       background: #fff;
       border-top: 1px solid #e5e7eb;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 28px;
+      padding: 8px 28px;
+      gap: 20px;
     }
-    .prog-wrap { display: flex; align-items: center; gap: 10px; }
-    .prog-lbl { font-size: 11px; font-weight: 600; color: #6b7280; letter-spacing: 0.5px; }
+    .ftr-status {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex: 1;
+      min-width: 0;
+    }
+    .ftr-sep { width: 1px; height: 28px; background: #e5e7eb; flex-shrink: 0; }
+    .prog-wrap { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .prog-lbl { font-size: 10px; font-weight: 700; color: #6b7280; letter-spacing: 1.5px; text-transform: uppercase; }
     .prog-dots { display: flex; gap: 5px; }
     .pdot { width: 8px; height: 8px; border-radius: 50%; background: #e5e7eb; transition: background 0.25s; }
     .pdot.done   { background: #16a34a; }
     .pdot.active { background: #86efac; }
+    .quota-bar {
+      flex: 1; min-width: 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 999px;
+      padding: 6px 16px;
+    }
+    .quota-bar > div { position: relative; padding: 0 10px; }
+    .quota-bar > div:not(:first-child)::before {
+      content: ''; position: absolute; left: -7px; top: 50%;
+      transform: translateY(-50%); width: 1px; height: 16px; background: #e5e7eb;
+    }
+    .ftr-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .undo-btn {
+      display: none; align-items: center; gap: 5px;
+      background: transparent; border: 1.5px solid #f59e0b; color: #b45309;
+      border-radius: 8px; padding: 0 14px; height: 40px;
+      font-size: 12px; font-weight: 700; cursor: pointer;
+      letter-spacing: 0.5px; transition: all 0.15s;
+    }
+    .undo-btn:hover { background: #fffbeb; }
     .sim-btn {
       background: #e5e7eb; border: none; border-radius: 8px;
       color: #4b5563; font-family: 'Bebas Neue', sans-serif;
       font-size: 14px; letter-spacing: 2px;
-      padding: 0 20px; height: 36px;
+      padding: 0 22px; height: 40px;
       cursor: not-allowed; transition: all 0.15s; white-space: nowrap;
     }
-    .sim-btn.ready { background: #2563eb; color: #fff; cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+    .sim-btn.ready {
+      background: #2563eb; color: #fff; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
     .sim-btn.ready:hover { background: #1d4ed8; }
     /* ═══════════════════════════════════════════
        RESPONSIVE — Tablet (≤900px) + Mobil (≤600px)
@@ -759,18 +792,17 @@
       .ps-bar  { height: 3px; }
 
       /* Footer: kompakt */
-      .ftr { padding: 0 14px; height: 44px; }
       .prog-lbl { display: none; }
       .pdot { width: 6px; height: 6px; }
 
-      /* Kota bar: sadece noktalar, label yok */
-      #quotaBar .quota-lbl { display: none; }
+      /* Kota bar: noktalar + küçük ama görünür etiketler */
+      #quotaBar .quota-lbl { font-size: 7px !important; letter-spacing: 0.2px !important; }
 
       /* Sim butonu */
-      .sim-btn { font-size: 11px; padding: 0 12px; height: 32px; letter-spacing: 1px; }
+      .sim-btn { font-size: 11px; padding: 0 12px; height: 36px; letter-spacing: 1px; }
 
       /* Undo butonu */
-      #undoBtn { font-size: 10px; padding: 0 10px; height: 32px; }
+      #undoBtn { font-size: 10px; padding: 0 10px; height: 36px; }
     }
 
     @media (max-width: 400px) {
@@ -972,13 +1004,16 @@
 
 <!-- FOOTER -->
 <footer class="ftr">
-  <div class="prog-wrap">
-    <div class="prog-lbl">İlerleme</div>
-    <div class="prog-dots" id="progDots"></div>
+  <div class="ftr-status">
+    <div class="prog-wrap">
+      <div class="prog-lbl">İlerleme</div>
+      <div class="prog-dots" id="progDots"></div>
+    </div>
+    <div class="ftr-sep" aria-hidden="true"></div>
+    <div id="quotaBar" class="quota-bar"></div>
   </div>
-  <div id="quotaBar" style="display:flex;align-items:center;gap:6px;flex:1;justify-content:center;"></div>
-  <div style="display:flex;align-items:center;gap:8px;">
-    <button id="undoBtn" onclick="undoLastPlacement()" style="display:none;align-items:center;gap:5px;background:transparent;border:1.5px solid #f59e0b;color:#f59e0b;border-radius:7px;padding:0 14px;height:34px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.5px;transition:all 0.15s;">
+  <div class="ftr-actions">
+    <button id="undoBtn" class="undo-btn" onclick="undoLastPlacement()">
       ↩ Geri Al
     </button>
     <button class="sim-btn" id="simBtn" aria-label="Dünya Kupası simülasyonunu başlat">DÜNYA KUPASI'NI SİMÜLE ET</button>
@@ -5134,35 +5169,46 @@ document.getElementById('simBtn').addEventListener('click', () => {
       min-height: 58px;
       height: auto;
       padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
       align-items: center;
     }
-    .prog-wrap { min-width: 74px; }
+    .ftr-status {
+      order: 1;
+      width: 100%;
+      flex: 0 0 100%;
+      gap: 8px;
+    }
+    .ftr-sep { display: none; }
+    .prog-wrap { min-width: 64px; flex-shrink: 0; }
     .prog-dots {
-      max-width: 90px;
+      max-width: 80px;
       flex-wrap: wrap;
       gap: 4px;
     }
-    #quotaBar {
-      order: 3;
-      width: 100%;
-      flex: 0 0 100% !important;
-      justify-content: center !important;
-      gap: 4px !important;
+    .quota-bar {
+      gap: 6px;
+      padding: 5px 10px;
       overflow: hidden;
     }
-    #quotaBar > div {
+    .quota-bar > div {
       transform: scale(0.9);
       transform-origin: center;
+      padding: 0 4px;
     }
-    .sim-btn, #undoBtn {
+    .quota-bar > div:not(:first-child)::before { left: -4px; }
+    .ftr-actions {
+      order: 2;
+      width: 100%;
+      flex: 0 0 100%;
+    }
+    .sim-btn, .undo-btn {
       min-height: 38px;
       border-radius: 9px !important;
       white-space: nowrap;
     }
     .sim-btn {
-      max-width: 48vw;
+      flex: 1;
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -5227,15 +5273,13 @@ document.getElementById('simBtn').addEventListener('click', () => {
     }
     .ftr { min-height: 66px; }
     .prog-wrap { display: none; }
+    .ftr-status { justify-content: center; }
     .sim-btn {
-      flex: 1 1 auto;
-      max-width: none;
-      min-width: 0;
       font-size: 10px;
       padding: 0 10px;
       letter-spacing: 0.8px;
     }
-    #undoBtn {
+    .undo-btn {
       flex: 0 0 auto;
       padding: 0 10px !important;
     }
