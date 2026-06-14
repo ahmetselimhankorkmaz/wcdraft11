@@ -79,9 +79,11 @@
       font-size: 13px;
       font-weight: 600;
       color: #6b7280;
+      padding-left: 10px;
+      border-left: 1px solid #e5e7eb;
     }
     .hdr-turn b { color: #111827; }
-    .hdr-team { font-size:11px; font-weight:800; color:#15803d; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:999px; padding:5px 9px; max-width:180px; max-width:calc(100vw - 32px); text-align:center; overflow:hidden; text-overflow:ellipsis; }
+    .hdr-team { font-size:11px; font-weight:800; color:#15803d; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:999px; padding:5px 9px; max-width:180px; max-width:calc(100vw - 32px); text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     button:focus-visible, select:focus-visible, .psc:focus-visible, .pc:focus-visible { outline:3px solid rgba(37,99,235,0.35); outline-offset:2px; }
     .action-hint { font-size:11px; color:#6b7280; line-height:1.35; background:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:7px 9px; }
 
@@ -700,8 +702,8 @@
       /* Header daha kompakt */
       .hdr { padding: 0 16px; height: 44px; }
       .hdr-logo { font-size: 15px; }
-      .hdr-turn { font-size: 11px; }
-      .hdr-team { display:none; }
+      .hdr-turn { font-size: 11px; padding-left: 8px; }
+      .hdr-team { display:inline-block; font-size: 9px; padding: 3px 7px; max-width: 92px; }
 
       /* Main: dikey yığın */
       .main {
@@ -873,7 +875,6 @@
         color: #15803d;
         border-bottom-color: #16a34a;
       }
-      .mob-tab-icon { font-size: 16px; }
       .mob-tab-badge {
         background: #16a34a;
         color: #fff;
@@ -927,11 +928,11 @@
   <!-- MOBİL TAB BAR -->
   <nav class="mob-tabs" id="mobTabs" aria-label="Bölüm sekmeleri">
     <button class="mob-tab active" id="tabSec" onclick="switchTab('sec')">
-      <span class="mob-tab-icon">🎰</span> OYUNCU SEÇ
+      OYUNCU SEÇ
       <span class="mob-tab-badge" id="tabSecBadge" style="display:none"></span>
     </button>
     <button class="mob-tab" id="tabKadro" onclick="switchTab('kadro')">
-      <span class="mob-tab-icon">🏟</span> KADRO
+      KADRO
       <span class="mob-tab-badge" id="tabKadroBadge">0</span>
     </button>
   </nav>
