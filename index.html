@@ -3202,12 +3202,19 @@ showTutorial();
   display:none; padding:40px 20px;
   text-align:center; max-width:600px; margin:0 auto;
 }
-.el-trophy { font-size:64px; margin-bottom:16px; display:block; }
-.el-title { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:3px; margin:0 0 8px; font-weight:400; }
-.el-sub { font-size:14px; color:#64748b; margin-bottom:24px; line-height:1.6; }
+.el-hero {
+  background:#0a1628; border:1px solid #1e3a5f;
+  border-radius:14px; padding:28px 24px; margin-bottom:20px;
+}
+.el-trophy { font-size:40px; margin-bottom:10px; display:block; }
+.el-title { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:3px; margin:0 0 12px; font-weight:400; color:#e2e8f0; }
+.result-team-row { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px; }
+.result-team-flag { font-size:32px; line-height:1; }
+.result-team-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1.5px; color:#fff; }
+.el-sub { font-size:13px; color:#64748b; line-height:1.6; }
 .el-stats {
   display:grid; grid-template-columns:repeat(3,1fr);
-  gap:12px; margin-bottom:28px;
+  gap:12px; margin-bottom:20px;
 }
 .el-stat-card {
   background:#0a1628; border:1px solid #1e3a5f;
@@ -3217,7 +3224,7 @@ showTutorial();
 .el-stat-lbl { font-size:11px; color:#64748b; margin-top:2px; }
 .el-squad {
   background:#0a1628; border:1px solid #1e3a5f;
-  border-radius:10px; padding:16px; margin-bottom:20px;
+  border-radius:14px; padding:16px; margin-bottom:20px;
   text-align:left;
 }
 .el-squad-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#475569; margin:0 0 10px; }
@@ -3241,14 +3248,29 @@ showTutorial();
   display:none; padding:40px 20px;
   text-align:center; max-width:600px; margin:0 auto;
 }
-.champ-trophy { font-size:80px; display:block; margin-bottom:8px;
-  animation: bounce 0.8s ease infinite alternate; }
-@keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-10px)} }
-.champ-title {
-  font-family:'Bebas Neue',sans-serif; font-size:52px;
-  letter-spacing:4px; color:#fbbf24; margin:0 0 4px; font-weight:400;
+.champ-hero {
+  background:#0a1628; border:1px solid rgba(251,191,36,0.35);
+  border-radius:14px; padding:28px 24px; margin-bottom:20px;
+  box-shadow: 0 0 24px rgba(251,191,36,0.10), inset 0 1px 0 rgba(255,255,255,0.06);
 }
-.champ-sub { font-size:14px; color:#94a3b8; margin-bottom:24px; }
+.champ-trophy { font-size:60px; display:block; margin-bottom:8px;
+  animation: bounce 0.8s ease infinite alternate; }
+@keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-8px)} }
+.champ-title {
+  font-family:'Bebas Neue',sans-serif; font-size:44px;
+  letter-spacing:4px; color:#fbbf24; margin:0 0 12px; font-weight:400;
+}
+.champ-sub { font-size:13px; color:#94a3b8; }
+.champ-captain {
+  margin-top:14px; padding-top:12px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  font-size:12px; color:#cbd5e1;
+}
+.champ-captain-lbl {
+  font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:#fbbf24; margin-right:6px;
+}
+.champ-captain-pos { color:#64748b; margin-left:4px; }
 .confetti-bg { position:fixed; inset:0; pointer-events:none; z-index:0; }
 
 /* Grup tablosu */
@@ -3345,16 +3367,20 @@ showTutorial();
   #eliminatedScreen, #championScreen {
     padding: 24px 14px;
   }
-  .el-trophy { font-size: 48px; margin-bottom: 10px; }
-  .champ-trophy { font-size: 60px; }
-  .el-title { font-size: 28px; letter-spacing: 2px; }
-  .champ-title { font-size: 36px; letter-spacing: 2px; }
-  .el-sub, .champ-sub { font-size: 12px; margin-bottom: 16px; }
+  .el-hero, .champ-hero { padding: 20px 16px; margin-bottom: 16px; }
+  .el-trophy { font-size: 32px; margin-bottom: 8px; }
+  .champ-trophy { font-size: 44px; }
+  .el-title { font-size: 24px; letter-spacing: 2px; margin-bottom: 10px; }
+  .champ-title { font-size: 32px; letter-spacing: 2px; margin-bottom: 10px; }
+  .result-team-flag { font-size: 26px; }
+  .result-team-name { font-size: 18px; }
+  .el-sub, .champ-sub { font-size: 12px; }
+  .champ-captain { font-size: 11px; margin-top: 12px; padding-top: 10px; }
   .el-stats { gap: 8px; margin-bottom: 16px; }
   .el-stat-card { padding: 10px 8px; border-radius: 8px; }
   .el-stat-val { font-size: 22px; }
   .el-stat-lbl { font-size: 10px; }
-  .el-squad { padding: 12px; margin-bottom: 14px; border-radius: 8px; }
+  .el-squad { padding: 12px; margin-bottom: 14px; border-radius: 10px; }
   .el-squad-title { font-size: 9px; margin-bottom: 7px; }
   .el-player-chip { font-size: 10px; padding: 3px 8px; }
   .el-restart { font-size: 15px; padding: 11px 24px; border-radius: 8px; }
@@ -3367,8 +3393,10 @@ showTutorial();
   .mh-flag { font-size: 22px; }
   .mh-name { font-size: 13px; }
   .match-events { max-height: 220px; }
-  .el-title { font-size: 24px; }
-  .champ-title { font-size: 30px; }
+  .el-title { font-size: 20px; }
+  .champ-title { font-size: 26px; }
+  .result-team-flag { font-size: 22px; }
+  .result-team-name { font-size: 16px; }
 }
 </style>
 
@@ -3446,9 +3474,15 @@ showTutorial();
 
 <!-- Elendi Ekranı -->
 <div id="eliminatedScreen">
-  <span class="el-trophy">💔</span>
-  <h2 class="el-title" id="elTitle"></h2>
-  <div class="el-sub" id="elSub"></div>
+  <div class="el-hero">
+    <span class="el-trophy">📋</span>
+    <h2 class="el-title" id="elTitle"></h2>
+    <div class="result-team-row">
+      <span class="result-team-flag" id="elTeamFlag"></span>
+      <span class="result-team-name" id="elTeamName"></span>
+    </div>
+    <div class="el-sub" id="elSub"></div>
+  </div>
   <div class="el-stats" id="elStats"></div>
   <div class="el-squad">
     <h3 class="el-squad-title">Kurduğun Kadro</h3>
@@ -3460,9 +3494,16 @@ showTutorial();
 <!-- Şampiyon Ekranı -->
 <div id="championScreen">
   <canvas class="confetti-bg" id="confettiCanvas"></canvas>
-  <span class="champ-trophy">🏆</span>
-  <h2 class="champ-title">ŞAMPİYON!</h2>
-  <div class="champ-sub" id="champSub"></div>
+  <div class="champ-hero">
+    <span class="champ-trophy">🏆</span>
+    <h2 class="champ-title">ŞAMPİYON!</h2>
+    <div class="result-team-row">
+      <span class="result-team-flag" id="champTeamFlag"></span>
+      <span class="result-team-name" id="champTeamName"></span>
+    </div>
+    <div class="champ-sub" id="champSub"></div>
+    <div class="champ-captain" id="champCaptain" style="display:none;"></div>
+  </div>
   <div class="el-stats" id="champStats"></div>
   <div class="el-squad">
     <h3 class="el-squad-title">Şampiyon Kadro</h3>
@@ -4733,9 +4774,10 @@ function showEliminatedScreen() {
   };
   const lastRound = simState.myMatchHistory[simState.myMatchHistory.length-1]?.round || 'Grup';
   document.getElementById('elTitle').textContent = `${lastRound}'DE ELENDİK`;
+  document.getElementById('elTeamFlag').textContent = simState.myTeamFlag;
+  document.getElementById('elTeamName').textContent = simState.myTeamName;
   document.getElementById('elSub').textContent =
-    `${simState.myTeamFlag} ${simState.myTeamName} bu sefer yetmedi. ` +
-    `${simState.wins} galibiyet, ${simState.draws} beraberlik, ${simState.losses} mağlubiyet.`;
+    `Bu sefer yetmedi: ${simState.wins} galibiyet, ${simState.draws} beraberlik, ${simState.losses} mağlubiyet.`;
 
   document.getElementById('elStats').innerHTML = `
     <div class="el-stat-card"><div class="el-stat-val">${simState.wins}</div><div class="el-stat-lbl">Galibiyet</div></div>
@@ -4793,23 +4835,23 @@ function renderTournamentResults(champion, runnerUp, third) {
   if (old) old.remove();
   const resultsDiv = document.createElement('div');
   resultsDiv.id = 'tournamentResultsBlock';
-  resultsDiv.style.cssText = 'background:#0a1628;border:1px solid #1e3a5f;border-radius:12px;padding:16px;margin-bottom:16px;';
+  resultsDiv.style.cssText = 'background:#0a1628;border:1px solid #1e3a5f;border-radius:14px;padding:16px;margin-bottom:16px;';
   resultsDiv.innerHTML = `
     <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#4ade80;margin-bottom:12px;">🏆 ${T('TOURNAMENT_RESULTS')}</div>
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:8px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:10px;">
         <span style="font-size:28px;">🥇</span><div><div style="font-size:10px;color:#64748b;letter-spacing:1px;text-transform:uppercase;">${T('CHAMPION')}</div><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fbbf24;">${champCountry?.flag||'🏳'} ${champCountry?.name||'?'}</div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:8px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:10px;">
         <span style="font-size:24px;">🥈</span><div><div style="font-size:10px;color:#64748b;letter-spacing:1px;text-transform:uppercase;">${T('RUNNER_UP')}</div><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#94a3b8;">${runnerCountry?.flag||'🏳'} ${runnerCountry?.name||'?'}</div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:8px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:10px;">
         <span style="font-size:24px;">🥉</span><div><div style="font-size:10px;color:#64748b;letter-spacing:1px;text-transform:uppercase;">${T('THIRD_PLACE')}</div><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#92400e;">${thirdCountry?.flag||'🏳'} ${thirdCountry?.name||'?'}</div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:8px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:10px;">
         <span style="font-size:24px;">⚽</span><div><div style="font-size:10px;color:#64748b;letter-spacing:1px;text-transform:uppercase;">${T('TOP_SCORER')}</div><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#60a5fa;">${goalKing.country.flag} ${goalKing.name} — ${goalKingGoals} ${T('GOALS')}</div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:8px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f2550;border-radius:10px;">
         <span style="font-size:24px;">🌟</span><div><div style="font-size:10px;color:#64748b;letter-spacing:1px;text-transform:uppercase;">${T('MVP')}</div><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#a78bfa;">${champCountry?.flag||'🏳'} ${mvp?.name||'?'}</div></div>
       </div>
     </div>
@@ -4971,9 +5013,21 @@ function showChampionScreen() {
   document.getElementById('matchScreen').style.display = 'none';
   document.getElementById('championScreen').style.display = 'block';
 
+  document.getElementById('champTeamFlag').textContent = simState.myTeamFlag;
+  document.getElementById('champTeamName').textContent = simState.myTeamName;
   document.getElementById('champSub').textContent =
-    `${simState.myTeamFlag} ${simState.myTeamName} 2026 Dünya Kupası Şampiyonu! ` +
-    `${simState.wins} galibiyet, ${simState.tournamentGoals} gol.`;
+    `2026 Dünya Kupası Şampiyonu — ${simState.wins} galibiyet, ${simState.tournamentGoals} gol.`;
+
+  const captainSlot = squadSlots.find(s => s.player?.name === captainName);
+  const champCaptainEl = document.getElementById('champCaptain');
+  if (captainSlot?.player) {
+    champCaptainEl.innerHTML =
+      `<span class="champ-captain-lbl">Kaptan</span>${captainSlot.player.name}` +
+      `<span class="champ-captain-pos">${captainSlot.pos} · ${captainSlot.player.rating}</span>`;
+    champCaptainEl.style.display = 'block';
+  } else {
+    champCaptainEl.style.display = 'none';
+  }
 
   document.getElementById('champStats').innerHTML = `
     <div class="el-stat-card"><div class="el-stat-val" style="color:#fbbf24">${simState.wins}</div><div class="el-stat-lbl">Galibiyet</div></div>
@@ -5022,10 +5076,10 @@ function showChampionScreen() {
   }
 
   awardsDiv.innerHTML = `
-    <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);border-radius:12px;padding:14px;margin-bottom:10px;">
+    <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);border-radius:14px;padding:14px;margin-bottom:10px;">
       <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#92400e;margin-bottom:10px;">🏅 TURNUVA ÖDÜLLERİ</div>
       <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;">
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2);border-radius:10px;padding:10px;">
           <span style="font-size:22px;">⚽</span>
           <div>
             <div style="font-size:10px;color:#a16207;letter-spacing:1px;text-transform:uppercase;">Gol Kralı</div>
@@ -5035,7 +5089,7 @@ function showChampionScreen() {
             </div>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;">
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2);border-radius:10px;padding:10px;">
           <span style="font-size:22px;">🌟</span>
           <div>
             <div style="font-size:10px;color:#a16207;letter-spacing:1px;text-transform:uppercase;">Turnuva Oyuncusu (MVP)</div>
@@ -5045,7 +5099,7 @@ function showChampionScreen() {
             </div>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;">
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2);border-radius:10px;padding:10px;">
           <span style="font-size:22px;">🏆</span>
           <div>
             <div style="font-size:10px;color:#a16207;letter-spacing:1px;text-transform:uppercase;">Şampiyon</div>
