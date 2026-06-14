@@ -344,26 +344,33 @@
     }
     .ps-fill { height: 100%; border-radius: 2px; }
     .sel-banner {
-      background: #eff6ff;
+      background: #fff;
       border: 2px solid #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
       border-radius: 10px;
-      padding: 8px 12px;
+      padding: 10px 12px;
       display: none;
       align-items: center;
       gap: 10px;
       flex-shrink: 0;
     }
     .sel-banner.show { display: flex; }
-    .sel-banner-info { flex:1; min-width:0; }
-    .sel-banner-name { font-size:12px; font-weight:700; color:#1e40af; max-width:calc(100vw - 32px); text-align:center; overflow:hidden; text-overflow:ellipsis; }
-    .sel-banner-hint { font-size:10px; color:#2563eb; margin-top:1px; }
-    .sel-banner-cancel {
-      background: transparent; border: 1px solid #bfdbfe;
-      color: #3b82f6; border-radius:6px;
-      padding: 3px 10px; font-size:11px; font-weight:600;
-      cursor:pointer; flex-shrink:0; max-width:calc(100vw - 32px); text-align:center;
+    .sel-banner-flag {
+      font-size: 18px; line-height: 1; flex-shrink: 0;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      background: #eff6ff; border-radius: 8px;
     }
-    .sel-banner-cancel:hover { background:#dbeafe; }
+    .sel-banner-info { flex:1; min-width:0; }
+    .sel-banner-label { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#2563eb; margin-bottom:1px; }
+    .sel-banner-name { font-size:13px; font-weight:700; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .sel-banner-hint { font-size:10px; color:#6b7280; margin-top:2px; }
+    .sel-banner-cancel {
+      background: transparent; border: 1.5px solid #e5e7eb;
+      color: #6b7280; border-radius:8px;
+      padding: 6px 12px; font-size:11px; font-weight:700;
+      cursor:pointer; flex-shrink:0; transition: border-color 0.12s, background 0.12s;
+    }
+    .sel-banner-cancel:hover { background:#f3f4f6; border-color:#d1d5db; }
 
     /* ── RIGHT: PITCH ── */
     .right {
@@ -969,8 +976,9 @@
 
       <!-- 5: Seçim banner — oyuncu seçilince görünür -->
       <div class="sel-banner" id="selBanner">
-        <div style="font-size:20px;" id="selBannerFlag">🏳</div>
+        <div class="sel-banner-flag" id="selBannerFlag">🏳</div>
         <div class="sel-banner-info">
+          <div class="sel-banner-label">SEÇİLİ OYUNCU</div>
           <div class="sel-banner-name" id="selBannerName">—</div>
           <div class="sel-banner-hint">Sahada mevkiye tıkla • <span style="color:#b45309">🟡 Alternatif</span> <span style="color:#b91c1c">🔴 Yanlış</span></div>
         </div>
@@ -1032,7 +1040,7 @@ const I18N = {
   tr: {
     TEAM_NOT_SELECTED:'Takım seçilmedi', FORMATION:'Formasyon', COUNTRY:'Ülke', CONFEDERATION:'Konfederasyon', SPIN:'ÇEVİR',
     PASS_PREFIX:'PAS GEÇ', PASS_SUFFIX:'hak kaldı', ACTION_HINT:'Ülkeni seç, çarkı çevir ve gelen ülkeden bir oyuncuyu uygun slota yerleştir.',
-    SELECT_PLAYER:'Oyuncu Seç', CLICK_POSITION:'Sahada mevkiye tıkla', ALT:'Alternatif', WRONG:'Yanlış', CANCEL:'✕ İptal',
+    SELECT_PLAYER:'Oyuncu Seç', SELECTED_PLAYER:'SEÇİLİ OYUNCU', CLICK_POSITION:'Sahada mevkiye tıkla', ALT:'Alternatif', WRONG:'Yanlış', CANCEL:'✕ İptal',
     NATURAL:'Doğal', CLICK_UNDO:'Tıkla: Geri al', PROGRESS:'İlerleme', SIMULATE:'DÜNYA KUPASI\'NI SİMÜLE ET', UNDO:'↩ Geri Al',
     ROUND:'Tur', BACK_TO_SQUAD:'← Kadroya Dön', MATCH_FLOW:'MAÇ AKIŞI', SPEED:'Hız', TOURNAMENT_RESULTS:'TURNUVA SONUÇLARI',
     CHAMPION:'Şampiyon', RUNNER_UP:'İkinci', THIRD_PLACE:'Üçüncü', TOP_SCORER:'Gol Kralı', MVP:'Turnuva Oyuncusu', GOALS:'gol',
@@ -1043,7 +1051,7 @@ const I18N = {
   en: {
     TEAM_NOT_SELECTED:'No team selected', FORMATION:'Formation', COUNTRY:'Country', CONFEDERATION:'Confederation', SPIN:'SPIN',
     PASS_PREFIX:'PASS', PASS_SUFFIX:'left', ACTION_HINT:'Pick your team, spin the wheel, then place a player from the drawn country into a suitable slot.',
-    SELECT_PLAYER:'Pick Player', CLICK_POSITION:'Tap a position on the pitch', ALT:'Alternative', WRONG:'Wrong', CANCEL:'✕ Cancel',
+    SELECT_PLAYER:'Pick Player', SELECTED_PLAYER:'SELECTED PLAYER', CLICK_POSITION:'Tap a position on the pitch', ALT:'Alternative', WRONG:'Wrong', CANCEL:'✕ Cancel',
     NATURAL:'Natural', CLICK_UNDO:'Tap: Undo', PROGRESS:'Progress', SIMULATE:'SIMULATE WORLD CUP', UNDO:'↩ Undo',
     ROUND:'Round', BACK_TO_SQUAD:'← Back to Squad', MATCH_FLOW:'MATCH FLOW', SPEED:'Speed', TOURNAMENT_RESULTS:'TOURNAMENT RESULTS',
     CHAMPION:'Champion', RUNNER_UP:'Runner-up', THIRD_PLACE:'Third Place', TOP_SCORER:'Top Scorer', MVP:'Player of the Tournament', GOALS:'goals',
@@ -1128,6 +1136,7 @@ function applyLanguage() {
   const passSuffix = document.getElementById('passLeftTxt'); if (passSuffix && passSuffix.nextSibling) passSuffix.nextSibling.nodeValue = ' ' + T('PASS_SUFFIX');
   setTxt('#actionHint', T('ACTION_HINT'));
   setTxt('#plLabel', T('SELECT_PLAYER'));
+  setTxt('.sel-banner-label', T('SELECTED_PLAYER'));
   const hint = document.querySelector('.sel-banner-hint');
   if (hint) hint.innerHTML = `${T('CLICK_POSITION')} • <span style="color:#b45309">🟡 ${T('ALT')}</span> <span style="color:#b91c1c">🔴 ${T('WRONG')}</span>`;
   const cancel = document.querySelector('.sel-banner-cancel'); if (cancel) cancel.textContent = T('CANCEL');
