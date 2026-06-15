@@ -253,13 +253,13 @@
       border-radius: 10px;
       padding: 0;
       cursor: pointer;
-      transition: border-color 0.12s, box-shadow 0.12s;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s ease-out;
       overflow: hidden;
       flex-shrink: 0; /* kartların kesilmesini önle */
     }
     .pc:hover { border-color: #16a34a; box-shadow: 0 2px 8px rgba(22,163,74,0.13); }
     .pc.used { opacity: 0.28; pointer-events: none; }
-    .pc.selecting { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+    .pc.selecting { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); transform: scale(1.015); }
 
     /* Kart üst satır */
     .pc-top {
@@ -547,6 +547,11 @@
       background: linear-gradient(135deg, rgba(96,165,250,0.18) 0%, rgba(96,165,250,0.07) 100%);
       box-shadow: 0 0 10px rgba(96,165,250,0.10), inset 0 1px 0 rgba(255,255,255,0.06);
     }
+    @keyframes pscPlaced {
+      from { transform: scale(0.9); opacity: 0.5; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .psc.placed-pop { animation: pscPlaced 0.2s ease-out; }
 
     /* E — Dolu slot içerik */
     .psc-name {
@@ -831,6 +836,18 @@
     @keyframes popIn {
       from { opacity: 0; transform: scale(0.85); }
       to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes squadReadyPop {
+      from { opacity: 0; transform: translateY(8px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Motion Sprint 1: kontrollü mikro etkileşimler için azaltılmış hareket desteği */
+    @media (prefers-reduced-motion: reduce) {
+      .pc { transition: border-color 0.01s, box-shadow 0.01s; }
+      .pc.selecting { transform: none; }
+      .psc.placed-pop { animation: none; }
+      #squadReadyOverlay, #squadReadyOverlay > div { animation: none; }
     }
 
     /* Kadro hazır / kaptan seçimi - etkileşim durumları */
@@ -2594,7 +2611,8 @@ function commitPlacement(idx, fit) {
   canUndo = true;
 
   const el = document.getElementById('psc' + idx);
-  el.className = 'psc done-' + fit;
+  el.className = 'psc done-' + fit + ' placed-pop';
+  setTimeout(() => el.classList.remove('placed-pop'), 220);
   const shortName = selPlayer.name.split(' ').pop().substring(0, 8);
   el.innerHTML = `
     <div class="psc-pos-badge">${squadSlots[idx].pos !== 'SUB' ? squadSlots[idx].pos : '+'}</div>
@@ -2665,7 +2683,7 @@ function showSquadReadyOverlay() {
       align-items: center;
       justify-content: center;
       z-index: 400;
-      animation: fadeInOverlay 0.3s ease;
+      animation: fadeInOverlay 0.2s ease;
       padding: 20px;
     `;
     overlay.innerHTML = `
@@ -2677,7 +2695,7 @@ function showSquadReadyOverlay() {
         max-width: 380px;
         width: 100%;
         box-shadow: 0 24px 80px rgba(0,0,0,0.3);
-        animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+        animation: squadReadyPop 0.22s cubic-bezier(0.16,1,0.3,1);
       ">
         <div style="display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:999px;padding:4px 12px;font-size:11px;font-weight:800;letter-spacing:1.5px;color:#15803d;text-transform:uppercase;margin-bottom:14px;">
           KADRO TAMAMLANDI · ${squadSlots.length}/${squadSlots.length}
