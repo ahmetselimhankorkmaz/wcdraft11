@@ -903,6 +903,18 @@
         min-width: 16px;
         text-align: center;
       }
+
+      /* Aktif olmayan sekme paneli gizlenir */
+      .left, .right {
+        display: none;
+      }
+      .left.mob-active, .right.mob-active {
+        display: flex;
+      }
+      /* Tek panel görünürken .right'ın flex:1 ile boş alanı doldurması engellenir */
+      .right.mob-active {
+        flex: none;
+      }
     }
 
     /* Hız butonu */
@@ -2665,6 +2677,9 @@ function commitPlacement(idx, fit) {
     setActionHint('Oyuncu yerleşti. Bir sonraki tur için çarkı çevir.');
     currentCountryId = null; // kilit kaldır
   }
+  // Yerleştirme bitince mobilde oyuncu seçim sekmesine geri dön
+  // (placed-pop animasyonu görünsün diye küçük bir gecikmeyle)
+  if (IS_MOBILE()) setTimeout(() => switchTab('sec'), 260);
 }
 
 function showSquadReadyOverlay() {
@@ -2979,11 +2994,8 @@ function switchTab(tab) {
 
 function initMobTabs() {
   if (!IS_MOBILE()) return;
-  const left  = document.querySelector('.left');
-  const right = document.querySelector('.right');
   // Başlangıçta seçim sekmesi aktif
-  left.classList.add('mob-active');
-  right.classList.remove('mob-active');
+  switchTab('sec');
 }
 
 function updateKadroBadge() {
@@ -5170,10 +5182,7 @@ function exitSim() {
   document.getElementById('simScreen').style.display = 'none';
   document.body.style.overflow = 'hidden';
   // Mobil tab panellerini geri yükle
-  const _left = document.querySelector('.left');
-  const _right = document.querySelector('.right');
-  if (_left) _left.style.display = '';
-  if (_right) _right.style.display = '';
+  initMobTabs();
   // Tüm state sıfırla
   resetAll();
   // Tutorial'ı gösterme, direkt ülke seçimine git
